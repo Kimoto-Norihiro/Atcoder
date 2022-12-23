@@ -8,30 +8,15 @@ for i in range(n):
     x,y = map(int,input().split())
     points.append((x,y))
 
-l = [i for i in range(n)]
+l = [ i for i in range(n)]
+c = combinations(l, 2)
 
-for i,j in combinations(l,2):
-    if points[i][0]==points[j][0]:
-        dif = points[i][1] - points[j][1]
-        p1 = [(points[i][0] + dif, points[i][1]),(points[j][0] + dif, points[j][1])]
-        p2 = [(points[i][0] - dif, points[i][1]),(points[j][0] - dif, points[j][1])]
-        
-        if set(points) >= set(p1):
-            ans += 1
-            print(p1,i,j)
-        if set(points) >= set(p2):
-            ans += 1
-            print(p2,i,j)
+for i, j in c:
+    p1_x, p1_y = points[i]
+    p2_x, p2_y = points[j]
 
-    if points[i][1]==points[j][1]:
-        dif = points[i][0] - points[j][0]
-        p1 = [(points[i][0], points[i][1]+dif),(points[j][0], points[j][1]+dif)]
-        p2 = [(points[i][0], points[i][1]-dif),(points[j][0], points[j][1]-dif)]
-        if set(points) >= set(p1):
+    if p1_x != p2_x and p1_y != p2_y:
+        if set([(p1_x, p2_y),(p2_x, p1_y)]) in set(points):
             ans += 1
-            print(p1,i,j)
-        if set(points) >= set(p2):
-            ans += 1
-            print(p2,i,j)
 
 print(ans)
